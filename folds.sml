@@ -22,9 +22,19 @@ fun all_passing predicate lst =
     let fun build (elt, answers) =
             case predicate elt of
                 false => answers
-              | true => [elt] @ answers
+              | true => [elt] @ answers (* should cons here, not append *)
     in
         foldr build [] lst
     end
 (* val all_passing = fn : ('a -> bool) -> 'a list -> 'a list *)
 val test_ap1 = all_passing (fn a => a > 3) [1,5,3,6] = [5,6]
+
+(* Use fold to print out a list *)
+val foo = print (("answers: " ^
+                  foldr (fn (n,s) => Int.toString(n) ^ ", "^ s)
+                        ""
+                        [3,4,5,6])
+                 ^"\n");
+(* prints this, note the extra comma
+answers: 3, 4, 5, 6,
+*)
