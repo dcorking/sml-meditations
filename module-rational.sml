@@ -3,11 +3,11 @@
 (* - (Rational1.toString(Rational1.make_frac(21,6))); *)
 (* val it = "7/2" : string *)
 
-(* This is a desired error *)
-(* - (Rational1.toString(Rational1.Frac(21,6))); *)
-(* stdIn:2.21-2.35 Error: unbound variable or constructor: Frac in path Rational1.Frac *)
-(* because we don't want clients to use a constructor, Frac, that
- violates the invariant that all fractions are in reduced form *)
+(* Now the Rational1.Whole constructor works *)
+(* - (Rational1.add(Rational1.Whole 7,Rational1.make_frac(21,6))); *)
+(* val it = - : Rational1.rational *)
+(* - Rational1.toString(it); *)
+(* val it = "21/2" : string *)
 
 (* Adapted from code by Dan Grossman *)
 
@@ -29,7 +29,17 @@ sig
     val toString : rational -> string
 end
 
-structure Rational1 :> RATIONAL_B =
+signature RATIONAL_C =
+sig
+    type rational
+    exception BadFrac
+    val Whole : int -> rational (* constructor is hidden with a function-like signature, as constructors are a kind of function *)
+    val make_frac : int * int -> rational
+    val add : rational * rational -> rational
+    val toString : rational -> string
+end
+
+structure Rational1 :> RATIONAL_C =
 struct
 datatype rational = Whole of int | Frac of int*int
 exception BadFrac
