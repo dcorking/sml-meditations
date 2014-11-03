@@ -1,6 +1,11 @@
 (* - (Rational1.make_frac(21,6)); *)
 (* val it = Frac (7,2) : Rational1.rational *)
+(* - (Rational1.toString(Rational1.make_frac(21,6))); *)
+(* val it = "7/2" : string *)
 
+(* This doesn't give a fraction in reduced form *)
+(* - (Rational1.toString(Rational1.Frac(21,6))); *)
+(* val it = "21/6" : string *)
 
 (* Adapted from code by Dan Grossman *)
 
@@ -9,8 +14,8 @@ sig
     datatype rational = Whole of int | Frac of int*int
     exception BadFrac
     val make_frac : int*int -> rational
-    (* val add : Rational1.rational*Rational1.rational -> Rational1.rational *)
-    (* val toString : Rational1.rational -> string *)
+    val add : rational * rational -> rational
+    val toString : rational -> string
 end
 
 structure Rational1 :> RATIONAL_A =
