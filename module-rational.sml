@@ -1,7 +1,5 @@
 (* my attempt at a signature *)
-(* - (RATIONAL1.make_frac(21,6));
-stdIn:6.2-6.21 Error: unbound structure: RATIONAL1 in path RATIONAL1.make_frac
- *)
+(* Error: unbound structure: Rational1 in path Rational1.rational *)
 signature RATIONAL1 =
 sig
     val make_frac : int*int -> Rational1.rational
@@ -11,7 +9,7 @@ end
 
 (* Adapted from code by Dan Grossman *)
 
-structure Rational1 =
+structure Rational1 :> RATIONAL1 =
 struct
 datatype rational = Whole of int | Frac of int*int
 exception BadFrac
