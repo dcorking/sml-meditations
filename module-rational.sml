@@ -1,15 +1,19 @@
-(* my attempt at a signature *)
-(* Error: unbound structure: Rational1 in path Rational1.rational *)
-signature RATIONAL1 =
-sig
-    val make_frac : int*int -> Rational1.rational
-    val add : Rational1.rational*Rational1.rational -> Rational1.rational
-    val toString : Rational1.rational -> string
-end
+(* - (Rational1.make_frac(21,6)); *)
+(* val it = Frac (7,2) : Rational1.rational *)
+
 
 (* Adapted from code by Dan Grossman *)
 
-structure Rational1 :> RATIONAL1 =
+signature RATIONAL_A =
+sig
+    datatype rational = Whole of int | Frac of int*int
+    exception BadFrac
+    val make_frac : int*int -> rational
+    (* val add : Rational1.rational*Rational1.rational -> Rational1.rational *)
+    (* val toString : Rational1.rational -> string *)
+end
+
+structure Rational1 :> RATIONAL_A =
 struct
 datatype rational = Whole of int | Frac of int*int
 exception BadFrac
